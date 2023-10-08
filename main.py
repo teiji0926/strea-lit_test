@@ -45,18 +45,18 @@ st.bar_chart(df)
 #地図へ
 st.map(df)
 
-#画像表示
-st.write('Display Image')
-img = Image.open(r'C:\Users\teiji\OneDrive\Desktop\kuji.jpg')
-#caption=guide use_column_widthは画面サイズの件
-st.image(img,caption='kuji',use_column_width=True)
+# #画像表示
+# st.write('Display Image')
+# img = Image.open(r'C:\Users\teiji\OneDrive\Desktop\kuji.jpg')
+# #caption=guide use_column_widthは画面サイズの件
+# st.image(img,caption='kuji',use_column_width=True)
 
-#チェックボックスの画像費用時
+# #チェックボックスの画像費用時
 
-if st.checkbox('Show Image'):
-    img = Image.open(r'C:\Users\teiji\OneDrive\Desktop\kuji.jpg')
-    #caption=guide use_column_widthは画面サイズの件
-    st.image(img,caption='kuji',use_column_width=True)
+# if st.checkbox('Show Image'):
+#     img = Image.open(r'C:\Users\teiji\OneDrive\Desktop\kuji.jpg')
+#     #caption=guide use_column_widthは画面サイズの件
+#     st.image(img,caption='kuji',use_column_width=True)
 
 #セレクトボックス作成
 option = st.selectbox(
