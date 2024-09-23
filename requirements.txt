@@ -1,4 +1,4 @@
-cmake
+cmake>=3.18.4
 streamlit==1.27.2
 pandas==2.1.1
 pyarrow==13.0.0
