@@ -1,7 +1,7 @@
 cmake
 streamlit==1.27.2
 pandas==2.1.1
-pyarrow==6.0.1  # バージョンを下げる
+pyarrow==13.0.0
 numpy==1.26.0
 requests==2.31.0
 validators==0.22.0
