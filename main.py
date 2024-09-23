@@ -1,5 +1,4 @@
 import streamlit as st
-import pandas as pd
 
 # ①社員番号の入力画面
 st.title('社員情報検索システム')
