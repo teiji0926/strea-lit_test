@@ -10,5 +10,5 @@ employee_id = st.text_input('社員番号')
 # ②エンターボタン
 if st.button('検索') :
     st.write('成功')
-    else:
-        st.write('該当する社員番号が見つかりません。')
+else:
+    st.write('社員番号を入れて検索ボタンを押下くだせえ')
