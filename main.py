@@ -1,105 +1,40 @@
 import streamlit as st
-import  numpy as np
 import pandas as pd
-from PIL import Image
-import time
 
-#タイトルの追加
-st.title('Streamlit入門')
+# 例の社員データフレーム (サンプルデータ)
+employee_data = {
+    '社員番号': ['100001', '100002', '100003'],
+    '名前': ['花子さん', '太郎さん', '次郎さん'],
+    'EX': ['〇', '×', '×'],
+    'e-5489': ['×', '〇', '〇'],
+    'えきねっと': ['×', '×', '〇']
+}
+df = pd.DataFrame(employee_data)
 
-#テキストの追加
-st.write('DataFrame')
+# ①社員番号の入力画面
+st.title('社員情報検索システム')
+st.markdown('<p style="font-size:18px;">社員番号を入力してください</p>', unsafe_allow_html=True)
 
-df = pd.DataFrame(np.random.rand(100,2)/[50,50]+[35.69,139.70],columns=['lat','lon'])
+# ユーザーに社員番号を入力させる
+employee_id = st.text_input('社員番号')
 
-st.write(df)
-#↑と機能的に近いが、↓は引数で表のサイズを変更できる highloghtはpandasの昨日
-st.dataframe(df.style.highlight_max(axis=0),width=500,height=100)
-#↓静的な表を作るとき
-st.table(df.style.highlight_max(axis=0))
-
-
-"""
-# 章
-## 節
-### 項
-
-```
-import streamlit as st
-import  numpy as np
-import pandas as pd
-```
-
-"""
-
-#画像費用時
-#折れ線グラフ
-st.line_chart(df)
-
-#エリアグラフ
-st.area_chart(df)
-
-#棒グラフ
-st.bar_chart(df)
-
-#地図へ
-st.map(df)
-
-# #画像表示
-# st.write('Display Image')
-# img = Image.open(r'C:\Users\teiji\OneDrive\Desktop\kuji.jpg')
-# #caption=guide use_column_widthは画面サイズの件
-# st.image(img,caption='kuji',use_column_width=True)
-
-# #チェックボックスの画像費用時
-
-# if st.checkbox('Show Image'):
-#     img = Image.open(r'C:\Users\teiji\OneDrive\Desktop\kuji.jpg')
-#     #caption=guide use_column_widthは画面サイズの件
-#     st.image(img,caption='kuji',use_column_width=True)
-
-#セレクトボックス作成
-option = st.selectbox(
-    'あなたがすきなもの',
-    list(range(1,11))
-)
-
-'あなたの好きな数字は',option,'です'
-
-#テキストボックス作成
-st.write('Interactive wijets')
-text = st.sidebar.text_input('ご趣味は？')
-'あなたの趣味は',text,'です'
-
-# #スライダー
-# condition = st.slider('あなたの今の調子は？',0,100,5)
-# 'あなたの調子は',condition,'です'
-
-# #サイドバーバージョン
-# #テキストボックス作成
-# text = st.sidebar.text_input('ご趣味は？')
-# 'あなたの趣味は',text,'です'
-
-#スライダー
-condition = st.sidebar.slider('あなたの今の調子は？',0,100,5)
-'あなたの調子は',condition,'です'
-
-#カラム制
-left_column,right_column = st.columns(2)
-button = left_column.button('右に文字を表示')
-if button:
-    right_column.write('右カラム')
-
-#FAQでよく使うやつ
-expander = st.expander('問い合わせ')
-expander.write('問い合わせ回答')
-expander1 = st.expander('問い合わせ1')
-expander1.write('問い合わせ回答1')
-
-st.write('プログレスバーの表示')
-'''Start'''
-latest_iteration = st.empty()
-for x in range(100):
-    latest_iteration.text(f'Iteration {x+1} %')
-    time.sleep(0.2)
-'''Done'''
+# ②エンターボタン
+if st.button('検索'):
+    # ③エンターボタンが押された後の処理
+    if employee_id in df['社員番号'].values:
+        # 社員情報を取得して表示し、インデックスをリセットして表示しないようにする
+        employee_info = df[df['社員番号'] == employee_id].reset_index(drop=True)
+        
+        st.markdown('<h3>カード保有情報:</h3>', unsafe_allow_html=True)
+        
+        # 名前とカード情報をスタイリッシュに表示
+        st.markdown(f"""
+            <div style="background-color: #f0f0f5; padding: 10px; border-radius: 10px;">
+                <p><strong>名前:</strong> {employee_info['名前'].values[0]}</p>
+                <p><strong>EX:</strong> {employee_info['EX'].values[0]}</p>
+                <p><strong>e-5489:</strong> {employee_info['e-5489'].values[0]}</p>
+                <p><strong>えきねっと:</strong> {employee_info['えきねっと'].values[0]}</p>
+            </div>
+        """, unsafe_allow_html=True)
+    else:
+        st.write('該当する社員番号が見つかりません。')
