@@ -13,7 +13,7 @@ df = pd.DataFrame(employee_data)
 
 # ①社員番号の入力画面
 st.title('社員情報検索システム')
-st.markdown('<p style="font-size:18px;">社員番号を入力してください</p>', unsafe_allow_html=True)
+st.subheader('社員番号を入力してください')
 
 # ユーザーに社員番号を入力させる
 employee_id = st.text_input('社員番号')
@@ -25,16 +25,17 @@ if st.button('検索'):
         # 社員情報を取得して表示し、インデックスをリセットして表示しないようにする
         employee_info = df[df['社員番号'] == employee_id].reset_index(drop=True)
         
-        st.markdown('<h3>カード保有情報:</h3>', unsafe_allow_html=True)
+        st.subheader('カード保有情報')
         
-        # 名前とカード情報をスタイリッシュに表示
-        st.markdown(f"""
-            <div style="background-color: #f0f0f5; padding: 10px; border-radius: 10px;">
-                <p><strong>名前:</strong> {employee_info['名前'].values[0]}</p>
-                <p><strong>EX:</strong> {employee_info['EX'].values[0]}</p>
-                <p><strong>e-5489:</strong> {employee_info['e-5489'].values[0]}</p>
-                <p><strong>えきねっと:</strong> {employee_info['えきねっと'].values[0]}</p>
-            </div>
-        """, unsafe_allow_html=True)
+        # 名前とカード情報をテーブル形式で表示
+        st.table(pd.DataFrame({
+            '項目': ['名前', 'EX', 'e-5489', 'えきねっと'],
+            '内容': [
+                employee_info['名前'].values[0],
+                employee_info['EX'].values[0],
+                employee_info['e-5489'].values[0],
+                employee_info['えきねっと'].values[0]
+            ]
+        }))
     else:
         st.write('該当する社員番号が見つかりません。')
